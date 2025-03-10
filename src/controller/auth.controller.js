@@ -7,12 +7,13 @@ export const authCallback = async (req, res, next) => {
     const user = await User.findOne({ clerkId: id });
 
     if (!user) {
-      await User.create;
-      ({
+      const newUser = new User({
         clerkId: id,
         fullName: `${firstName} + ${lastName}`,
         imageUrl,
       });
+
+      await newUser.save();
     }
 
     res.status(200).json({ success: true });
