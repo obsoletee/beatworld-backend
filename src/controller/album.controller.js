@@ -6,7 +6,7 @@ export const getAllAlbums = async (req, res, next) => {
     res.status(200).json(albums);
   } catch (error) {
     console.log(`Error in getAllAlbums`);
-    next();
+    next(error);
   }
 };
 
@@ -21,6 +21,6 @@ export const getAlbumById = async (req, res, next) => {
     res.status(200).json(album);
   } catch (error) {
     console.log(`Error in getAlbumById`);
-    next();
+    next(error);
   }
 };

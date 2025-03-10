@@ -8,7 +8,7 @@ import authRoutes from './routes/auth.route.js';
 import adminRoutes from './routes/admin.route.js';
 import songRoutes from './routes/song.route.js';
 import albumRoutes from './routes/album.route.js';
-import statsRoutes from './routes/stats.route.js';
+import statRoutes from './routes/stat.route.js';
 import { connectDB } from './lib/db.js';
 
 dotenv.config();
@@ -37,17 +37,15 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/songs', songRoutes);
 app.use('/api/albums', albumRoutes);
-app.use('/api/stats', statsRoutes);
+app.use('/api/stats', statRoutes);
 
 app.use((error, req, res, next) => {
-  res
-    .status(500)
-    .json({
-      message:
-        process.env.NODE_ENV === 'production'
-          ? `Internal server error`
-          : error.message,
-    });
+  res.status(500).json({
+    message:
+      process.env.NODE_ENV === 'production'
+        ? `Internal server error`
+        : error.message,
+  });
 });
 
 app.listen(PORT, () => {
