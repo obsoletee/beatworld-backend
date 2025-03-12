@@ -26,7 +26,7 @@ const seedDatabase = async () => {
         title: 'Never Again',
         artist: 'Lil Durk',
         imageUrl: '/cover-images/1.jpg',
-        audioUrl: '/songs/1.mp3',
+        audioUrl: '/songs/Lil-Durk-Never-Again.mp3',
         duration: 140,
         trackNumber: 4,
         plays: 0,
@@ -65,15 +65,6 @@ const seedDatabase = async () => {
         audioUrl: '/songs/1.mp3',
         duration: 123,
         trackNumber: 5,
-        plays: 0,
-      },
-      {
-        title: 'All My Life (feat. J. Cole)',
-        artist: 'Lil Durk, J. Cole',
-        imageUrl: '/cover-images/1.jpg',
-        audioUrl: '/songs/1.mp3',
-        duration: 224,
-        trackNumber: 3,
         plays: 0,
       },
       {
@@ -137,13 +128,13 @@ const seedDatabase = async () => {
         title: 'Almost Healed',
         artist: 'Lil Durk',
         imageUrl: '/albums/almost_healed.jpg',
-        songs: createdSongs.slice(0, 10).map((song) => song._id),
+        songs: createdSongs.slice(0, 9).map((song) => song._id),
       },
       {
         title: 'american dream',
         artist: '21 Savage',
         imageUrl: '/albums/american_dream.jpg',
-        songs: createdSongs.slice(10, 13).map((song) => song._id),
+        songs: createdSongs.slice(9, 12).map((song) => song._id),
       },
     ];
 
