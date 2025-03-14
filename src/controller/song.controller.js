@@ -81,3 +81,18 @@ export const getTrendingSongs = async (req, res, next) => {
     next(error);
   }
 };
+
+export const updatePlays = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const song = await Song.findOne({ _id: id });
+
+    await Song.updateOne({ _id: id }, { $set: { plays: song.plays + 1 } });
+
+    res.status(200).json({ message: 'Plays added successfully' });
+  } catch (error) {
+    console.log('Error in updatePlays', error);
+    next(error);
+  }
+};

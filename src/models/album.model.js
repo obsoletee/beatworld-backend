@@ -9,6 +9,7 @@ const albumSchema = new mongoose.Schema(
       reqired: true,
     },
     imageUrl: { type: String, reqired: true },
+    description: { type: String, reqired: true },
     songs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Song' }],
   },
   { timestamps: true },
