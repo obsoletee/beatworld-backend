@@ -1,10 +1,29 @@
 import { clerkClient } from '@clerk/express';
+import { User } from '../models/user.model.js';
 
 export const protectRoute = async (req, res, next) => {
   if (!req.auth.userId) {
     return res
       .status(401)
       .json({ message: 'Unauthorized: you must be logged in' });
+  }
+
+  next();
+};
+
+export const requireSeller = async (req, res, next) => {
+  try {
+    const id = req.auth.userId;
+    const currentUser = await User.findOne({ clerkId: id });
+
+    if (!currentUser.isSeller) {
+      return res.status(403).json({
+        message:
+          'You are using customer account: please switch your account to seller in your profile',
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ message: `Internal server error`, error });
   }
 
   next();

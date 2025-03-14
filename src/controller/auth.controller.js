@@ -12,6 +12,10 @@ export const authCallback = async (req, res, next) => {
         fullName: `${firstName + lastName ? ' ' + lastName : ''}`,
         firstName: firstName,
         lastName: lastName,
+        username: firstName,
+        isSeller: false,
+        isSubscribePlanStarter: false,
+        isSubscribePlanProfessional: false,
         imageUrl,
       });
 

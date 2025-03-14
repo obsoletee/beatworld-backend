@@ -16,24 +16,38 @@ const uploadToCloudinary = async (file) => {
 
 export const createSong = async (req, res, next) => {
   try {
-    if (!req.files || !req.files.audioFile || !req.files.imageFile) {
+    if (!req.files || !req.files.audioMp3File || !req.files.imageFile) {
       return res.status(400).json({ message: `Please upload all files` });
     }
 
-    const { title, artist, albumId, duration } = req.body;
+    const { title, artistId, albumId, duration } = req.body;
 
-    const audioFile = req.files.audioFile;
-    const imageFile = req.files.audioImage;
+    const audioMp3File = req.files.audioMp3File;
+    const audioMp3Url = await uploadToCloudinary(audioMp3File);
 
-    const audioUrl = await uploadToCloudinary(audioFile);
+    const audioWavUrl = '';
+    if (req.files.audioWavFile) {
+      const audioWavFile = req.files.audioWavFile;
+      audioWavUrl = await uploadToCloudinary(audioWavFile);
+    }
+    const stemsUrl = '';
+    if (req.files.stemsFile) {
+      const stemsFile = req.files.stemsFile;
+      stemsUrl = await uploadToCloudinary(stemsFile);
+    }
+
+    const imageFile = req.files.imageFile;
     const imageUrl = await uploadToCloudinary(imageFile);
 
     const song = new Song({
       title,
-      artist,
-      audioUrl,
+      artistId,
+      audioMp3Url,
+      audioWavUrl,
+      stemsUrl,
       imageUrl,
       duration,
+      plays: 0,
       albumId: albumId || null,
     });
 
@@ -60,11 +74,12 @@ export const deleteSong = async (req, res, next) => {
 
     if (song.albumId) {
       await Album.findByIdAndUpdate(song.albumId, {
-        $pull: { songs: song_id },
+        $pull: { songs: song._id },
       });
     }
 
     await Song.findByIdAndDelete(id);
+
     res.status(200).json({ message: `Song deleted successfully` });
   } catch (error) {
     console.log(`Error in deleteSong`, error);
