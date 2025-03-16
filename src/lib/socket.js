@@ -62,8 +62,6 @@ export const initializeSocket = (server) => {
         }
       }
 
-      console.log('disconnected user ', disconnectedUserId);
-
       if (disconnectedUserId) {
         io.emit('user_disconnected', disconnectedUserId);
       }
