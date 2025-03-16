@@ -15,7 +15,6 @@ const songSchema = new mongoose.Schema(
     audioStemsUrl: { type: String },
     duration: { type: Number, reqired: true },
     plays: { type: Number, reqired: true },
-    trackNumber: { type: Number, reqired: true },
     albumId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Album',
